@@ -12,3 +12,5 @@ export * from './error/KeyManagementAlgorithmNotSupportedError'
 
 export * from './jwk'
 export { legacyKeyIdFromPublicJwk } from './legacy'
+
+export * from './bip39'
