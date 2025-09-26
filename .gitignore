@@ -12,3 +12,4 @@ logs.txt
 logs/
 .pnpm-store
 ngrok.auth.yml
+# CI Debug - Fri Sep 26 13:28:10 EDT 2025
