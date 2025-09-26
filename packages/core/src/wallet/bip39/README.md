@@ -45,8 +45,8 @@ const gmailPasskey = await createKeyWithP256Support({
     mnemonic: 'abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about',
     origin: 'accounts.google.com',
     userHandle: 'user@gmail.com',
-    counter: 0
-  }
+    counter: 0,
+  },
 })
 
 console.log('Generated passkey:', gmailPasskey.keyType) // 'p256'
@@ -63,18 +63,18 @@ const firstGitHubKey = await createKeyWithP256Support({
     mnemonic: 'your-bip39-mnemonic-phrase',
     origin: 'github.com',
     userHandle: 'developer123',
-    counter: 0  // First key
-  }
+    counter: 0, // First key
+  },
 })
 
 const secondGitHubKey = await createKeyWithP256Support({
   keyType: KeyType.P256,
   p256Options: {
     mnemonic: 'your-bip39-mnemonic-phrase',
-    origin: 'github.com', 
+    origin: 'github.com',
     userHandle: 'developer123',
-    counter: 1  // Second key - different from first
-  }
+    counter: 1, // Second key - different from first
+  },
 })
 ```
 
@@ -84,13 +84,13 @@ const secondGitHubKey = await createKeyWithP256Support({
 // Other key types work exactly as before
 const ed25519Key = await createKeyWithP256Support({
   keyType: KeyType.Ed25519,
-  keyId: 'my-signing-key'
+  keyId: 'my-signing-key',
 })
 
 // P-256 keys without p256Options also work as before (random generation)
 const randomP256Key = await createKeyWithP256Support({
   keyType: KeyType.P256,
-  keyId: 'random-p256-key'
+  keyId: 'random-p256-key',
   // No p256Options = delegates to original createKey
 })
 ```
@@ -109,6 +109,7 @@ function enhancedCreateKey(
 ```
 
 **Parameters:**
+
 - `originalCreateKey`: The original wallet createKey function
 - `options`: Enhanced options with optional p256Options
 
@@ -123,6 +124,7 @@ function createDeterministicP256Key(options: DeterministicP256Options): Promise<
 ```
 
 **Parameters:**
+
 - `options.mnemonic`: BIP39 mnemonic phrase
 - `options.origin`: WebAuthn origin/domain (e.g., 'github.com')
 - `options.userHandle`: WebAuthn user handle/identifier
@@ -163,10 +165,7 @@ class RoccaWallet {
   constructor(private baseWallet: Wallet) {}
 
   async createKey(options: BIP39WalletCreateKeyOptions) {
-    return enhancedCreateKey(
-      this.baseWallet.createKey.bind(this.baseWallet), 
-      options
-    )
+    return enhancedCreateKey(this.baseWallet.createKey.bind(this.baseWallet), options)
   }
 
   // ... delegate other methods to baseWallet
@@ -182,8 +181,8 @@ const passkey = await wallet.createKey({
   p256Options: {
     mnemonic: storedMnemonic,
     origin: 'your-app.com',
-    userHandle: userId
-  }
+    userHandle: userId,
+  },
 })
 ```
 
@@ -203,6 +202,7 @@ npm test -- --testPathPattern="bip39"
 ```
 
 The module includes comprehensive tests covering:
+
 - ✅ Deterministic key generation
 - ✅ dp256 library integration
 - ✅ Error handling
